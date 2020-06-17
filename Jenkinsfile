@@ -3,6 +3,7 @@ pipeline {
 	environment {
       path_to_file = "/home/ec2-user/JenkinsFiles/*"
       remote_dir_path   = "/var/www/html"
+	}
 
     stages {
         stage('1-Build') {
@@ -43,4 +44,4 @@ pipeline {
 				}
     }
 }
-}
+
