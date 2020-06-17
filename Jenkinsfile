@@ -20,7 +20,7 @@ pipeline {
         }
        stage('SSH transfer') {
 	       steps {
-		       sh sudo scp -i /home/ec2-user/.ssh/webkey * ec2-user@54.227.201.253:/var/www/html
+		       sh sudo scp -i /home/ec2-user/.ssh/webkey .* ec2-user@54.227.201.253:/var/www/html
 		       echo "Start transfer"
 				}
     }
