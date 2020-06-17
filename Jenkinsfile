@@ -19,22 +19,9 @@ pipeline {
             }
         }
        stage('SSH transfer') {
-			script {
-				sshPublisher(
-					continueOnError: false, failOnError: true,
-					publishers: [
-						sshPublisherDesc(
-						configName: "${env.SSH_CONFIG_NAME}",
-						verbose: true,
-						transfers: [
-							sshTransfer(
-							sourceFiles: index.html ,
-							remoteDirectory: /var/www/html ,
-							execCommand: "ls"
-							)
-							])
-						])
-					}
+	       steps {
+		       sh sudo scp -i /home/ec2-user/.ssh/webkey * ec2-user@54.227.201.253:/var/www/html
+		       echo "Start transfer"
 				}
     }
 }
