@@ -5,6 +5,7 @@ pipeline {
         stage('1-Build') {
             steps {
                 echo "Start of Stage Build"
+				sh cd /home/ec2-user
 				sh git clone https://github.com/Fraerok-byte/master.git
                 echo "Building......."
                 echo "End of Stage Build"
@@ -19,10 +20,23 @@ pipeline {
             }
         }
        stage('SSH transfer') {
-	       steps {
-		       sh sudo scp -i /home/ec2-user/.ssh/webkey * ec2-user@54.227.201.253:/var/www/html
-		       echo "Start transfer"
+			script {
+				sshPublisher(
+					continueOnError: false, failOnError: true,
+					publishers: [
+						sshPublisherDesc(
+						configName: "${env.SSH_CONFIG_NAME}",
+						verbose: true,
+						transfers: [
+							sshTransfer(
+							sourceFiles: /home/ec2-user/JenkinsFiles/* ,
+							removePrefix: /home/ec2-user/JenkinsFiles,
+							remoteDirectory: /var/www/html,
+							execCommand: "ls"
+							)
+							])
+						])
+					}
 				}
     }
-}
 }
