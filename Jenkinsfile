@@ -29,7 +29,6 @@ pipeline {
 						transfers: [
 							sshTransfer(
 							sourceFiles: index.html ,
-							removePrefix: ,
 							remoteDirectory: /var/www/html,
 							execCommand: "ls"
 							)
