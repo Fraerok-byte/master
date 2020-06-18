@@ -6,7 +6,8 @@
 
 FROM amazonlinux
 
-RUN yum -y update
+
+RUN yum -y install httpd
 
 
 RUN echo 'Hello World from Docker!' > /var/www/html/index.html
